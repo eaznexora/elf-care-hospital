@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elf Care Hospital | Premium Healthcare</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00796b;
+            --secondary: #004d40;
+            --accent: #26a69a;
+            --light: #f4f7f6;
+            --dark: #333;
+            --white: #ffffff;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Loading Animation --- */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid #e0f2f1;
+            border-top: 6px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        #loader p {
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 2px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* --- Header & Navigation --- */
+        header {
+            background: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            margin-left: 30px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Hamburger Menu Styles */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 80px 5%;
+            text-align: center;
+            background: linear-gradient(135deg, #e0f2f1 0%, #ffffff 100%);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+
+        /* --- Image Gallery & Hover Animations --- */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 50px 5%;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            cursor: pointer;
+        }
+
+        .gallery img:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.15);
+        }
+
+        /* --- Content Sections --- */
+        section {
+            padding: 50px 5%;
+            background: var(--white);
+            margin: 20px 5%;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        ul { list-style: none; }
+        ol li { margin-bottom: 10px; padding-left: 10px; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th { background: var(--primary); color: white; }
+        tr:hover { background: #f1f1f1; }
+
+        /* --- Form Styling --- */
+        .form-container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group { margin-bottom: 20px; }
+        input[type="text"], input[type="tel"], input[type="number"], select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-top: 5px;
+            font-family: inherit;
+        }
+
+        .checkbox-group, .radio-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-submit {
+            background: var(--primary);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover { background: var(--secondary); }
+
+        /* --- Custom Notification Popup --- */
+        #successPopup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            backdrop-filter: blur(5px);
+        }
+
+        .popup-content {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: var(--shadow);
+            animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        @keyframes popIn { 
+            from { transform: scale(0.5); opacity: 0; } 
+            to { transform: scale(1); opacity: 1; } 
+        }
+
+        .popup-icon { font-size: 4rem; color: #4caf50; margin-bottom: 20px; }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 40px 5% 20px;
+            text-align: center;
+        }
+
+        .footer-link {
+            color: #4db6ac;
+            text-decoration: none;
+        }
+
+        /* --- Scroll Reveal Animation --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            
+            .hamburger { display: flex; }
+
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                align-items: center;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                transition: clip-path 0.4s ease-in-out;
+            }
+
+            nav.open { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+
+            nav a { margin: 15px 0; font-size: 1.1rem; }
+
+            .hamburger.toggle span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.toggle span:nth-child(2) { opacity: 0; }
+            .hamburger.toggle span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="spinner"></div>
+        <p>LOADING ELF CARE...</p>
+    </div>
+
+    <div id="successPopup">
+        <div class="popup-content">
+            <div class="popup-icon">✓</div>
+            <h3>Thank You!</h3>
+            <p>Your appointment request has been successfully submitted to the Eaz Nexora team.</p>
+            <button type="button" onclick="closePopup()" class="btn-submit" style="margin-top: 20px;">Done</button>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo">Elf Care Hospital</div>
+        
+        <div class="hamburger" id="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav id="nav-links">
+            <a href="#about" class="nav-item">About</a>
+            <a href="#rules" class="nav-item">Rules</a>
+            <a href="#doctors" class="nav-item">Doctors</a>
+            <a href="#contact" class="nav-item">Contact</a>
+        </nav>
+    </header>
+
+    <div class="hero reveal" id="about">
+        <h1>Welcome to Elf Care Hospital</h1>
+        <p>Elf Care Hospital is a modern healthcare center providing comprehensive treatment for a wide range of health issues. We are committed to delivering high-quality medical care in a clean, safe, and patient-friendly environment. Our hospital is supported by experienced doctors, well-trained staff, and advanced medical facilities to ensure reliable and timely treatment for every patient. At Elf Care Hospital, patient care and wellbeing are our top priorities.</p>
+        <a href="https://www.eaznexora.com/" style="color: var(--primary); font-weight: 600;">For Appointment Visit Eaz Nexora →</a>
+    </div>
+
+    <div class="gallery reveal">
+        <img src="hospitalimage1.webp" alt="Hospital Exterior">
+        <img src="image2.webp" alt="Hospital Lobby">
+        <img src="image3.webp" alt="Advanced Equipment">
+    </div>
+
+    <section id="rules" class="reveal">
+        <h2>Hospital Rules</h2>
+        <ol>
+            <li>Patients and visitors are requested to maintain cleanliness and hygiene within the hospital premises.</li>
+            <li>Visiting hours must be strictly followed as per hospital policy.</li> 
+            <li>Silence should be maintained to ensure a peaceful environment for patients.</li>
+            <li>Only authorized attendants are allowed inside patient care areas.</li>
+            <li>Smoking, alcohol, and use of tobacco products are strictly prohibited inside the hospital.</li>
+        </ol>
+    </section>
+
+    <section id="doctors" class="reveal">
+        <h2>Mera Hospital Mere Doctors</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Doctors Name</th>
+                    <th>Specialist In</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Alfiya</td><td>Neurosurgeon</td></tr>
+                <tr><td>Nafis</td><td>Cardiologist</td></tr>
+                <tr><td>Ameen</td><td>Psychologist</td></tr>
+                <tr><td>Rehan</td><td>Cancer Specialist</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <div id="contact" class="form-container reveal">
+        <h2>Contact Form</h2>
+        <form id="hospitalForm">
+            <div class="form-group">
+                <label>Name:</label>
+                <input type="text" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number:</label>
+                <input type="tel" name="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label>Age:</label>
+                <input type="number" name="age" required>
+            </div>
+
+            <div class="form-group">
+                <label><big>Select Your Health Issues</big></label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" value="Cancer" name="health issues"> Cancer</label>
+                    <label><input type="checkbox" value="Aasthama" name="health issues"> Aasthama</label>
+                    <label><input type="checkbox" value="Diabities" name="health issues"> Diabities</label>
+                    <label><input type="checkbox" value="Skin-realted Problems" name="health issues"> Skin-realted Problems</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><big>Select Your Age</big></label>
+                <div class="radio-group">
+                    <label><input type="radio" value="18-30" name="class"> 18-30</label>
+                    <label><input type="radio" value="30-60" name="class"> 30-60</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><big><i>Select Your City</i></big></label>
+                <select name="city">                                                                                                                                                                                    
+                    <option value="Delhi">Delhi</option>
+                    <option value="Banglore">Banglore</option>
+                    <option value="Pune">Pune</option>
+                    <option value="Mumbai">Mumbai</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label><big><b>Address</b></big></label>
+                <textarea name="address" rows="3" placeholder="Enter Your Address"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label><big><b>Feedback</b></big></label>
+                <textarea name="feedback" rows="3" placeholder="please give your valuable feedback here"></textarea>
+            </div>
+
+            <button type="submit" id="formSubmitBtn" class="btn-submit">Submit</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Elf Care Hospital. Built by Team Eaz Nexora.</p>
+        <p><a href="https://www.eaznexora.com/" class="footer-link">Visit Eaz Nexora</a></p>
+    </footer>
+
+    <script>
+        // --- Loading Screen Logic ---
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('loader');
+            setTimeout(function() {
+                loader.style.opacity = '0';
+                setTimeout(function() {
+                    loader.style.visibility = 'hidden';
+                }, 600);
+            }, 800);
+        });
+
+        // --- Hamburger Menu Logic ---
+        const hamburger = document.getElementById('hamburger-menu');
+        const navLinks = document.getElementById('nav-links');
+        const navItems = document.querySelectorAll('.nav-item');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+            hamburger.classList.toggle('toggle');
+        });
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if(navLinks.classList.contains('open')) {
+                    navLinks.classList.remove('open');
+                    hamburger.classList.remove('toggle');
+                }
+            });
+        });
+
+        // --- Scroll Reveal Animation Logic ---
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        reveal();
+
+        // --- Form Submission & Custom Popup Logic ---
+        const form = document.getElementById('hospitalForm');
+        const popup = document.getElementById('successPopup');
+        const formBtn = document.getElementById('formSubmitBtn'); // Specifically targeting the form button now
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show processing state on form button
+            formBtn.innerHTML = "Processing...";
+            formBtn.style.background = "#ffa000";
+
+            // Simulate network request delay, then show popup
+            setTimeout(() => {
+                popup.style.display = 'flex';
+                // Reset form button back to normal
+                formBtn.innerHTML = "Submit";
+                formBtn.style.background = "var(--primary)";
+                this.reset();
+            }, 1000);
+        });
+
+        function closePopup() {
+            popup.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
